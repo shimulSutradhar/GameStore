@@ -1,3 +1,4 @@
+from bson import ObjectId
 from pymongo import MongoClient
 
 class MongoDB:    
@@ -29,12 +30,3 @@ class MongoDB:
         collection = self.db[collection_name]
         result = collection.delete_one(query)
         return result.deleted_count
-
-
-# def check() -> None:
-#     print("Database is working!")
-
-# check()
-# x = MongoDB("mongodb+srv://shimulsutradhar814:8GdKJHmXjAiwadvv@cluster0.g81ls.mongodb.net/", "gamestore")
-# x.insert_one("users", {"name": "sc", "email": "sc@gmail.com"})
-# print(x.find_all("users", {}))
