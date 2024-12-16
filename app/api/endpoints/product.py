@@ -46,16 +46,19 @@ async def get_product():
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
+class FildInfo(BaseModel):
+    key: str
+    value: Union[str, int]
 
 @router.put("/update_product/{product_id}")
-async def update_product(product_id: str, key: str, value: Union[str, int]):
+async def update_product(product_id: str, fildInfo: FildInfo):
     try:
-        print("Checking model: ", key, value)
+        print("Checking model: ", fildInfo.key, fildInfo.value)
         DB = database.MongoDB(DB_URL, DB_NAME)
         update_result = DB.update_one(
             "products", 
             {"_id":  ObjectId(product_id)}, 
-            {key : value}
+            {fildInfo.key : fildInfo.value}
         )
         print("Checking update result: ", update_result)
         if update_result > 0:
