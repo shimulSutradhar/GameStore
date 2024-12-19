@@ -50,6 +50,25 @@ async def add_product(product: Product):  # Expect a Product model instance
         return {"message": "Product added successfully!", "product": product_data}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+    
+
+class Order(BaseModel):
+    address: str
+    quantity: str
+    prioduct_id: str
+    phoneNumber: str
+    userid: str
+
+@router.post("/add_order")
+async def add_order(order: Order):
+    try:
+        data = order.model_dump()
+        print(data)
+        DB = database.MongoDB(DB_URL, DB_NAME)
+        DB.insert_one("orders", data)
+        return {"message": "Order added successfully!", "order": data}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
 @router.get("/get_product")
 async def get_product():

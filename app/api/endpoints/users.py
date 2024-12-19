@@ -30,8 +30,8 @@ async def get_users():
     users = DB.find_all("users", {})
     
     users = json.loads(json_util.dumps(users))
-    for user in users:
-        user.pop('_id', None)
+    # for user in users:
+    #     user.pop('_id', None)
     return users
 
 class VerifyUserRequest(BaseModel):
